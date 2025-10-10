@@ -6,6 +6,17 @@ connector, as the destination for println debug statments.
 
 >Note: Use `make help` to see all make commands.
 
+By default the arduino-cli automatically find the "first" ttyACM0
+that is an "Expressif" device. If you have only one device this isn't a
+problem, but I'm using a Raspberry PI Debug Probe which is a USB
+device and if it's the first device `make {c|u|monitor}` will connect to
+it by default and you'll need to use the PORT parameter to connect
+to the PDS. Another option si to be sure you plug in the PDS first
+and then the Debug Probe. That way `make c S=<SketchDir>` and
+make u S=<SketchDir>` work without needing PORT, but you will be
+it for `make monitor PORT=/dev/ttyACMx` where x is most likey 1 :)
+
+
 ## License
 
 Licensed under either of

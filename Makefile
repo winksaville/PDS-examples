@@ -93,7 +93,8 @@ core.%: ## `make lib.<cmd> PKG=<PackageName>` Runs arduino-cli lib <cmd> "$(PKG)
 .DELETE_ON_ERROR: $(BUILD)/$(SKETCH).ino.bin
 
 # Build product from ./<SKETCH>/<SKETCH>.ino
-$(BUILD)/$(SKETCH).ino.bin: ./$(SKETCH)/$(SKETCH).ino
+.PHONY: buildit
+buildit:
 	@printf "Compiling sketch '%s' for %s" "$(SKETCH)" "$(FQBN)"; \
 	if [ -n '$(strip $(OTHER_COMPILE_PARAMS))' ]; then \
 	  printf " with opts: %s" '$(OTHER_COMPILE_PARAMS)'; \
@@ -106,13 +107,11 @@ $(BUILD)/$(SKETCH).ino.bin: ./$(SKETCH)/$(SKETCH).ino
 
 compile c: ## `make c S=<SketchDir>` Compile a sketch
 	$(call check-sketch)
-	touch $(SKETCH)/$(SKETCH).ino
-	@$(MAKE) $(BUILD)/$(SKETCH).ino.bin
+	@$(MAKE) buildit
 
 compile_commands cc: ## `make cc S=<SketchDir>` Generate `build/compile_commands.json` using --only-compilation-database
 	$(call check-sketch)
-	touch $(SKETCH)/$(SKETCH).ino
-	@$(MAKE) $(BUILD)/$(SKETCH).ino.bin OTHER_COMPILE_PARAMS=--only-compilation-database
+	@$(MAKE) buildit OTHER_COMPILE_PARAMS=--only-compilation-database
 
 # Helper: resolve port (use PORT if set, else auto-detected), then run $(1)
 define GET_PORT
