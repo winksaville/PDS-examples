@@ -1,8 +1,10 @@
-# PD-Stepper-wink
+# PDS-examples
 
-Code to try to debug why PD_Stepper isn't fully functional.
-The hypothesis is that the libraries I'm using are too new
-compared to the ones used by Josh.
+Initially just one example, Debug_Aux. This is code
+that uses the AUX connector, located next to the USB-C
+connector, as the destination for println debug statments.
+
+>Note: Use `make help` to see all make commands.
 
 ## License
 
