@@ -1,4 +1,5 @@
 {
-  "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
-  "C_Cpp.intelliSenseEngineFallback": "Disabled"
+  "C_Cpp.default.configurationProvider": "vscode-arduino",
+  "arduino.useArduinoCli": true,
+  "arduino.path": "/usr/bin/arduino-cli"
 }

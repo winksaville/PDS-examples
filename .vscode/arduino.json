@@ -1,0 +1,5 @@
+{
+  "board": "esp32:esp32:esp32s3",
+  "sketch": "Debug_Aux/Debug_Aux.ino",
+  "output": "build"
+}
