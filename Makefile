@@ -106,10 +106,12 @@ $(BUILD)/$(SKETCH).ino.bin: ./$(SKETCH)/$(SKETCH).ino
 
 compile c: ## `make c S=<SketchDir>` Compile a sketch
 	$(call check-sketch)
+	touch $(SKETCH)/$(SKETCH).ino
 	@$(MAKE) $(BUILD)/$(SKETCH).ino.bin
 
 compile_commands cc: ## `make cc S=<SketchDir>` Generate `build/compile_commands.json` using --only-compilation-database
 	$(call check-sketch)
+	touch $(SKETCH)/$(SKETCH).ino
 	@$(MAKE) $(BUILD)/$(SKETCH).ino.bin OTHER_COMPILE_PARAMS=--only-compilation-database
 
 # Helper: resolve port (use PORT if set, else auto-detected), then run $(1)
