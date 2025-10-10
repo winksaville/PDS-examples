@@ -1,5 +1,4 @@
 {
-  "C_Cpp.default.configurationProvider": "vscode-arduino",
-  "arduino.useArduinoCli": true,
-  "arduino.path": "/usr/bin/arduino-cli"
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+  "C_Cpp.default.compilerPath": "${workspaceFolder}/shared/data/packages/esp32/tools/esp-x32/2507/bin/xtensa-esp32s3-elf-g++"
 }
