@@ -95,15 +95,7 @@ core.%: ## `make lib.<cmd> PKG=<PackageName>` Runs arduino-cli lib <cmd> "$(PKG)
 # Build product from ./<SKETCH>/<SKETCH>.ino
 .PHONY: buildit
 buildit:
-	@printf "Compiling sketch '%s' for %s" "$(SKETCH)" "$(FQBN)"; \
-	if [ -n '$(strip $(OTHER_COMPILE_PARAMS))' ]; then \
-	  printf " with opts: %s" '$(OTHER_COMPILE_PARAMS)'; \
-	  if [[ '$(strip $(OTHER_COMPILE_PARAMS))' == *"only-compilation-database"* ]]; then \
-	    printf " to $(BUILD)/compile_commands.json"; \
-	  fi; \
-	fi; \
-	printf "\n"
-	@$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" "./$(SKETCH)" $(OTHER_COMPILE_PARAMS)
+	$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" "./$(SKETCH)" $(OTHER_COMPILE_PARAMS)
 
 compile c: ## `make c S=<SketchDir>` Compile a sketch
 	$(call check-sketch)

@@ -1,0 +1,10 @@
+# .clangd
+CompileFlags:
+  Add: [
+    "--sysroot=/home/wink/data/prgs/PDS-examples/shared/data/packages/esp32/tools/esp-x32/2507/xtensa-esp-elf",
+    "-target","xtensa",
+    "-isystem","/home/wink/data/prgs/PDS-examples/shared/data/packages/esp32/tools/esp-x32/2507/xtensa-esp-elf/include",
+    "-isystem","/home/wink/data/prgs/PDS-examples/shared/data/packages/esp32/tools/esp-x32/2507/xtensa-esp-elf/include/c++/14.2.0",
+    "-isystem","/home/wink/data/prgs/PDS-examples/shared/data/packages/esp32/tools/esp-x32/2507/xtensa-esp-elf/include/c++/14.2.0/xtensa-esp-elf"
+  ]
+  Compiler: /home/wink/data/prgs/PDS-examples/shared/data/packages/esp32/tools/esp-x32/2507/bin/xtensa-esp32s3-elf-g++
