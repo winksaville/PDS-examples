@@ -95,23 +95,24 @@ core.%: ## `make lib.<cmd> PKG=<PackageName>` Runs arduino-cli lib <cmd> "$(PKG)
 # Build product from ./<SKETCH>/<SKETCH>.ino
 .PHONY: buildit
 buildit:
-	@printf "Compiling sketch '%s' for %s" "$(SKETCH)" "$(FQBN)"; \
-	if [ -n '$(strip $(OTHER_COMPILE_PARAMS))' ]; then \
-	  printf " with opts: %s" '$(OTHER_COMPILE_PARAMS)'; \
-	  if [[ '$(strip $(OTHER_COMPILE_PARAMS))' == *"only-compilation-database"* ]]; then \
-	    printf " to $(BUILD)/compile_commands.json"; \
-	  fi; \
-	fi; \
-	printf "\n"
-	@$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" "./$(SKETCH)" $(OTHER_COMPILE_PARAMS)
+	$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" "./$(SKETCH)" $(OTHER_COMPILE_PARAMS)
 
 compile c: ## `make c S=<SketchDir>` Compile a sketch
 	$(call check-sketch)
-	@$(MAKE) buildit
+	$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" "./$(SKETCH)" $(OTHER_COMPILE_PARAMS)
+#	@$(MAKE) buildit
 
 compile_commands cc: ## `make cc S=<SketchDir>` Generate `build/compile_commands.json` using --only-compilation-database
 	$(call check-sketch)
 	@$(MAKE) buildit OTHER_COMPILE_PARAMS=--only-compilation-database
+
+cc-map: # make cc-map S=<SketchDir> Map paths in build/compile_commands.json to absolute paths
+	@echo PWD="$(PWD) S=$(SKETCH)"
+	@mv build/compile_commands.json build/compile_commands.org.json
+	jq --arg W "$(PWD)" --arg S "$(S)" \
+	'map(if (.file|test("/build/sketch/")) then .file = (.file | sub(".*/build/sketch/"; ($$W + "/" + $$S + "/"))) else . end)' \
+	build/compile_commands.org.json > build/compile_commands.mapped.json
+	ln -sf compile_commands.mapped.json build/compile_commands.json
 
 # Helper: resolve port (use PORT if set, else auto-detected), then run $(1)
 define GET_PORT

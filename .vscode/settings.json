@@ -1,4 +1,7 @@
 {
-  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
-  "C_Cpp.default.compilerPath": "${workspaceFolder}/shared/data/packages/esp32/tools/esp-x32/2507/bin/xtensa-esp32s3-elf-g++"
+    "C_Cpp.loggingLevel": "Debug",
+    "files.associations": {
+        "freertos.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }
