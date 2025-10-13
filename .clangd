@@ -1,5 +1,16 @@
 # .clangd
 CompileFlags:
+  # If a file you are looking is "red" then clangd is
+  # having trouble parsing it. One issue is "Unknown argument""
+  # if you see this just add that flag to Remove list below:
+  # The bot provided this answer:
+  #  https://chatgpt.com/share/68ed45ea-aecc-800c-997d-e5bf44604c76
+  Remove: [
+    "-mlongcalls",
+    "-mdisable-hardware-atomics",
+    "-fstrict-volatile-bitfields",
+    "-fno-tree-switch-conversion"
+  ]
   Add: [
     "--sysroot=/home/wink/data/prgs/PDS-examples/shared/data/packages/esp32/tools/esp-x32/2507/xtensa-esp-elf",
     "-target","xtensa",
