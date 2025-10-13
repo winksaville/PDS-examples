@@ -19,3 +19,8 @@ CompileFlags:
     "-isystem","/home/wink/data/prgs/PDS-examples/shared/data/packages/esp32/tools/esp-x32/2507/xtensa-esp-elf/include/c++/14.2.0/xtensa-esp-elf"
   ]
   Compiler: /home/wink/data/prgs/PDS-examples/shared/data/packages/esp32/tools/esp-x32/2507/bin/xtensa-esp32s3-elf-g++
+
+# Disable warnings about Unsed Includes
+#  Bot: https://chatgpt.com/share/68ed4b66-2764-800c-97d8-0ee4fc3ef7fa
+Diagnostics:
+  UnusedIncludes: None
