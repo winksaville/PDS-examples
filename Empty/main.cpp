@@ -18,9 +18,12 @@ void loop() {
   delay(500);
 }
 
-int main() {
+// The entry point is `__wrap_app_main`, see the
+// `buildit:` target in Makefile for more details.
+extern "C" void __wrap_app_main(void) {
   setup();
   while (true) {
+    Serial1.println("Main loop iteration");
     loop();
   }
 }

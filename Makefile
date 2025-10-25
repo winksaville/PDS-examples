@@ -93,9 +93,18 @@ core.%: ## `make lib.<cmd> PKG=<PackageName>` Runs arduino-cli lib <cmd> "$(PKG)
 .DELETE_ON_ERROR: $(BUILD)/$(SKETCH).ino.bin
 
 # Build product from ./<SKETCH>/<SKETCH>.ino
+# Note: the `--build-property "compiler.c.elf.extra_flags=\"-Wl,--wrap=app_main\""`
+#       causes the linker to use our `__wrap_app_main` main.cpp in place of
+#       `app_main`, the default version which is defined in:
+#            PDS-examples/shared/data/packages/esp32/hardware/esp32/3.3.2/cores/esp32/main.cpp
+#       The linker re-names it `__real_app_main` if we wanted to call it we could
+#       by adding `extern "C" void __real_app_main(void);` and then invoking __real_app_main.
+# 	    well, but we don't need to.
+#       See this conversation with the Bot how we came to this solution
+#       https://chatgpt.com/share/68fc169e-d0e4-800c-b570-2f43e7ca48bb
 .PHONY: buildit
 buildit:
-	$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" "./$(SKETCH)" $(OTHER_COMPILE_PARAMS)
+	$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" --build-property "compiler.c.elf.extra_flags=\"-Wl,--wrap=app_main\""  "./$(SKETCH)" $(OTHER_COMPILE_PARAMS)
 
 compile c: ## `make c S=<SketchDir>` Compile a sketch
 	$(call check-sketch)

@@ -5,9 +5,18 @@
 
 bool led_on = false;
 
-int main() {
+// The entry point is `__wrap_app_main`, see the
+// `buildit:` target in Makefile for more details.
+extern "C" void __wrap_app_main(void) {
+  initArduino(); // Initialize Arduino framework if desired not needed
   setup();
+  uint64_t loop_count = 0;
+  Serial1.println("main: entering main loop");
   while (true) {
+    if (loop_count % 10 == 0) {
+      Serial1.println("Loop count: " + String(loop_count));
+    }
     loop();
+    loop_count++;
   }
 }
