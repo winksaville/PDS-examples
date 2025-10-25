@@ -46,7 +46,7 @@ Sketch uses 311095 bytes (23%) of program storage space. Maximum is 1310720 byte
 Global variables use 20656 bytes (6%) of dynamic memory, leaving 307024 bytes for local variables. Maximum is 327680 bytes.
 ```
 
-## Clangd and IntelliSense
+## Settingup Clangd instead of Intellisense in VSCode
 
 I uninstalled the Microsoft C/C++ extension and installed clangd
 Here is a search that might help:

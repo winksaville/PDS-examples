@@ -5,7 +5,7 @@ but Empty.ino is empty and all of the
 code is in main.cpp. This works and
 the only difference is between Debug_Aux.ino
 and main.cpp is including <Arduino.h> and
-have main invoke setup and then repeatedly
+have __wrap_app_main invoke setup and then repeatedly
 invoke loop() in a while loop.
 
 So functionality is the same but I had to
