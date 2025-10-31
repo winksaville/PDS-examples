@@ -26,12 +26,12 @@ arduino-cli  --config-file "./arduino-cli.yaml" config set directories.user shar
 
 Installed ESPAsyncWebServer@3.1.0
 Downloading AsyncTCP@1.1.4...
-AsyncTCP@1.1.4 downloaded                                                                                                                                                                     
+AsyncTCP@1.1.4 downloaded
 Installing AsyncTCP@1.1.4...
 Installed AsyncTCP@1.1.4
 arduino-cli  --config-file "./arduino-cli.yaml" lib install "TMC2209"
 Downloading TMC2209@10.1.1...
-TMC2209@10.1.1 downloaded                                                                                                                                                                     
+TMC2209@10.1.1 downloaded
 Installing TMC2209@10.1.1...
 Installed TMC2209@10.1.1
 ```
@@ -103,6 +103,307 @@ to the PDS. Another option si to be sure you plug in the PDS first
 and then the Debug Probe. That way `make c S=<SketchDir>` and
 make u S=<SketchDir>` work without needing PORT, but you will be
 it for `make monitor PORT=/dev/ttyACMx` where x is most likey 1 :)
+
+## Test runs
+
+Test runs using the esp32::esp32, with unspecified version which
+at the time of this run was `esp32:esp32@3.3.2 downloaded` as seen
+below when we `make init`:
+
+```
+wink@3900x 25-10-31T18:44:34.458Z:~/data/prgs/PDS-examples (main)
+$ make uninit ; make init
+rm -rf arduino-cli.yaml build shared
+arduino-cli  --config-file "./arduino-cli.yaml" config init
+Config file written to: ./arduino-cli.yaml
+arduino-cli  --config-file "./arduino-cli.yaml" config set directories.data shared/data
+arduino-cli  --config-file "./arduino-cli.yaml" config set directories.user shared
+arduino-cli  --config-file "./arduino-cli.yaml" config set directories.downloads shared/downloads
+arduino-cli  --config-file "./arduino-cli.yaml" config set network.connection_timeout 600s
+arduino-cli  --config-file "./arduino-cli.yaml" config add board_manager.additional_urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+arduino-cli  --config-file "./arduino-cli.yaml" core update-index
+Downloading index: library_index.tar.bz2 downloaded
+Downloading index: package_index.tar.bz2 downloaded
+Downloading index: package_esp32_index.json downloaded
+Downloading missing tool builtin:ctags@5.8-arduino11...
+builtin:ctags@5.8-arduino11 downloaded
+Installing builtin:ctags@5.8-arduino11...
+Skipping tool configuration....
+builtin:ctags@5.8-arduino11 installed
+Downloading missing tool builtin:dfu-discovery@0.1.2...
+builtin:dfu-discovery@0.1.2 downloaded
+Installing builtin:dfu-discovery@0.1.2...
+Skipping tool configuration....
+builtin:dfu-discovery@0.1.2 installed
+Downloading missing tool builtin:mdns-discovery@1.0.9...
+builtin:mdns-discovery@1.0.9 downloaded
+Installing builtin:mdns-discovery@1.0.9...
+Skipping tool configuration....
+builtin:mdns-discovery@1.0.9 installed
+Downloading missing tool builtin:serial-discovery@1.4.1...
+builtin:serial-discovery@1.4.1 downloaded
+Installing builtin:serial-discovery@1.4.1...
+Skipping tool configuration....
+builtin:serial-discovery@1.4.1 installed
+Downloading missing tool builtin:serial-monitor@0.15.0...
+builtin:serial-monitor@0.15.0 downloaded
+Installing builtin:serial-monitor@0.15.0...
+Skipping tool configuration....
+builtin:serial-monitor@0.15.0 installed
+Downloading index: package_index.tar.bz2 downloaded
+Downloading index: package_esp32_index.json downloaded
+arduino-cli  --config-file "./arduino-cli.yaml" core install "esp32:esp32"		# Complex works. Latest version with mbedtls_md5_xxx routines PD_Stepper_Web_Server won't compile
+Downloading packages...
+esp32:esp32-arduino-libs@idf-release_v5.5-07e9bf49-v1 downloaded
+esp32:esp-x32@2507 downloaded
+esp32:xtensa-esp-elf-gdb@16.3_20250913 downloaded
+esp32:esp-rv32@2507 downloaded
+esp32:riscv32-esp-elf-gdb@16.3_20250913 downloaded
+esp32:openocd-esp32@v0.12.0-esp32-20250707 downloaded
+esp32:esptool_py@5.1.0 downloaded
+esp32:mkspiffs@0.2.3 downloaded
+esp32:mklittlefs@4.0.2-db0513a downloaded
+arduino:dfu-util@0.11.0-arduino5 downloaded
+esp32:esp32@3.3.2 downloaded
+Installing esp32:esp32-arduino-libs@idf-release_v5.5-07e9bf49-v1...
+Configuring tool....
+esp32:esp32-arduino-libs@idf-release_v5.5-07e9bf49-v1 installed
+Installing esp32:esp-x32@2507...
+Configuring tool....
+esp32:esp-x32@2507 installed
+Installing esp32:xtensa-esp-elf-gdb@16.3_20250913...
+Configuring tool....
+esp32:xtensa-esp-elf-gdb@16.3_20250913 installed
+Installing esp32:esp-rv32@2507...
+Configuring tool....
+esp32:esp-rv32@2507 installed
+Installing esp32:riscv32-esp-elf-gdb@16.3_20250913...
+Configuring tool....
+esp32:riscv32-esp-elf-gdb@16.3_20250913 installed
+Installing esp32:openocd-esp32@v0.12.0-esp32-20250707...
+Configuring tool....
+esp32:openocd-esp32@v0.12.0-esp32-20250707 installed
+Installing esp32:esptool_py@5.1.0...
+Configuring tool....
+esp32:esptool_py@5.1.0 installed
+Installing esp32:mkspiffs@0.2.3...
+Configuring tool....
+esp32:mkspiffs@0.2.3 installed
+Installing esp32:mklittlefs@4.0.2-db0513a...
+Configuring tool....
+esp32:mklittlefs@4.0.2-db0513a installed
+Installing arduino:dfu-util@0.11.0-arduino5...
+Configuring tool....
+arduino:dfu-util@0.11.0-arduino5 installed
+Installing platform esp32:esp32@3.3.2...
+Configuring platform....
+Platform esp32:esp32@3.3.2 installed
+arduino-cli  --config-file "./arduino-cli.yaml" lib install "ESPAsyncWebServer"
+Downloading ESPAsyncTCP@1.2.4...
+ESPAsyncTCP@1.2.4 downloaded
+Installing ESPAsyncTCP@1.2.4...
+Installed ESPAsyncTCP@1.2.4
+Downloading ESPAsyncWebServer@3.1.0...
+ESPAsyncWebServer@3.1.0 downloaded
+Installing ESPAsyncWebServer@3.1.0...
+Installed ESPAsyncWebServer@3.1.0
+Downloading AsyncTCP@1.1.4...
+AsyncTCP@1.1.4 downloaded
+Installing AsyncTCP@1.1.4...
+Installed AsyncTCP@1.1.4
+arduino-cli  --config-file "./arduino-cli.yaml" lib install "TMC2209"
+Downloading TMC2209@10.1.1...
+TMC2209@10.1.1 downloaded
+Installing TMC2209@10.1.1...
+Installed TMC2209@10.1.1
+wink@3900x 25-10-31T18:45:42.275Z:~/data/prgs/PDS-examples (main)
+$ make clean ; make u S=Debug_Aux PORT=/dev/ttyACM0
+rm -rf -- "build"
+Sketch uses 311087 bytes (23%) of program storage space. Maximum is 1310720 bytes.
+Global variables use 20656 bytes (6%) of dynamic memory, leaving 307024 bytes for local variables. Maximum is 327680 bytes.
+esptool v5.1.0
+Connected to ESP32-S3 on /dev/ttyACM0:
+Chip type:          ESP32-S3 (QFN56) (revision v0.2)
+Features:           Wi-Fi, BT 5 (LE), Dual Core + LP Core, 240MHz, Embedded Flash 8MB (GD)
+Crystal frequency:  40MHz
+USB mode:           USB-Serial/JTAG
+MAC:                b4:3a:45:b8:9a:c8
+
+Stub flasher running.
+Changing baud rate to 921600...
+Changed.
+
+Configuring flash size...
+Flash will be erased from 0x00000000 to 0x00004fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000e000 to 0x0000ffff...
+Flash will be erased from 0x00010000 to 0x0005bfff...
+Wrote 20224 bytes (13062 compressed) at 0x00000000 in 0.3 seconds (526.5 kbit/s).
+Hash of data verified.
+Wrote 3072 bytes (146 compressed) at 0x00008000 in 0.0 seconds (607.2 kbit/s).
+Hash of data verified.
+Wrote 8192 bytes (47 compressed) at 0x0000e000 in 0.1 seconds (728.1 kbit/s).
+Hash of data verified.
+Wrote 311232 bytes (170289 compressed) at 0x00010000 in 2.2 seconds (1136.2 kbit/s).
+Hash of data verified.
+
+Hard resetting via RTS pin...
+New upload port: /dev/ttyACM0 (serial)
+wink@3900x 25-10-31T18:46:10.109Z:~/data/prgs/PDS-examples (main)
+$ make monitor PORT=/dev/ttyACM1
+Monitor port settings:
+  baudrate=115200
+  bits=8
+  dtr=on
+  parity=none
+  rts=on
+  stop_bits=1
+
+Connecting to /dev/ttyACM1. Press CTRL-C to exit.
+LED1 ON
+LED1 OFF
+LED1 ON
+LED1LED1 ON
+LED1 OFF
+LED1 ON
+LED1 OFF
+LED1 ON
+^C
+wink@3900x 25-10-31T18:46:19.610Z:~/data/prgs/PDS-examples (main)
+$ make clean ; make u S=Empty PORT=/dev/ttyACM0
+rm -rf -- "build"
+Sketch uses 311155 bytes (23%) of program storage space. Maximum is 1310720 bytes.
+Global variables use 20656 bytes (6%) of dynamic memory, leaving 307024 bytes for local variables. Maximum is 327680 bytes.
+esptool v5.1.0
+Connected to ESP32-S3 on /dev/ttyACM0:
+Chip type:          ESP32-S3 (QFN56) (revision v0.2)
+Features:           Wi-Fi, BT 5 (LE), Dual Core + LP Core, 240MHz, Embedded Flash 8MB (GD)
+Crystal frequency:  40MHz
+USB mode:           USB-Serial/JTAG
+MAC:                b4:3a:45:b8:9a:c8
+
+Stub flasher running.
+Changing baud rate to 921600...
+Changed.
+
+Configuring flash size...
+Flash will be erased from 0x00000000 to 0x00004fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000e000 to 0x0000ffff...
+Flash will be erased from 0x00010000 to 0x0005bfff...
+Wrote 20224 bytes (13062 compressed) at 0x00000000 in 0.3 seconds (524.9 kbit/s).
+Hash of data verified.
+Wrote 3072 bytes (146 compressed) at 0x00008000 in 0.0 seconds (597.9 kbit/s).
+Hash of data verified.
+Wrote 8192 bytes (47 compressed) at 0x0000e000 in 0.1 seconds (735.3 kbit/s).
+Hash of data verified.
+Wrote 311296 bytes (170305 compressed) at 0x00010000 in 2.2 seconds (1133.9 kbit/s).
+Hash of data verified.
+
+Hard resetting via RTS pin...
+New upload port: /dev/ttyACM0 (serial)
+wink@3900x 25-10-31T18:46:37.945Z:~/data/prgs/PDS-examples (main)
+$ make monitor PORT=/dev/ttyACM1
+Monitor port settings:
+  baudrate=115200
+  bits=8
+  dtr=on
+  parity=none
+  rts=on
+  stop_bits=1
+
+Connecting to /dev/ttyACM1. Press CTRL-C to exit.
+LED1 OFF
+LED1 ON
+LED1 OFF
+LEDMain loop iteration
+LED1 ON
+Main loop iteration
+LED1 OFF
+Main loop iteration
+LED1 ON
+Main loop iteration
+LED1 OFF
+Main loop iteration
+LED1 ON
+Main loop iteration
+LED1 OFF
+Main loop iteration
+LED1 ON
+Main loop iteration
+LED1 OFF
+^C
+wink@3900x 25-10-31T18:46:45.610Z:~/data/prgs/PDS-examples (main)
+$ make clean ; make u S=Complex PORT=/dev/ttyACM0
+rm -rf -- "build"
+Sketch uses 311759 bytes (23%) of program storage space. Maximum is 1310720 bytes.
+Global variables use 20656 bytes (6%) of dynamic memory, leaving 307024 bytes for local variables. Maximum is 327680 bytes.
+esptool v5.1.0
+Connected to ESP32-S3 on /dev/ttyACM0:
+Chip type:          ESP32-S3 (QFN56) (revision v0.2)
+Features:           Wi-Fi, BT 5 (LE), Dual Core + LP Core, 240MHz, Embedded Flash 8MB (GD)
+Crystal frequency:  40MHz
+USB mode:           USB-Serial/JTAG
+MAC:                b4:3a:45:b8:9a:c8
+
+Stub flasher running.
+Changing baud rate to 921600...
+Changed.
+
+Configuring flash size...
+Flash will be erased from 0x00000000 to 0x00004fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000e000 to 0x0000ffff...
+Flash will be erased from 0x00010000 to 0x0005cfff...
+Wrote 20224 bytes (13062 compressed) at 0x00000000 in 0.3 seconds (529.7 kbit/s).
+Hash of data verified.
+Wrote 3072 bytes (146 compressed) at 0x00008000 in 0.0 seconds (599.3 kbit/s).
+Hash of data verified.
+Wrote 8192 bytes (47 compressed) at 0x0000e000 in 0.1 seconds (782.3 kbit/s).
+Hash of data verified.
+Wrote 311904 bytes (170784 compressed) at 0x00010000 in 2.2 seconds (1116.4 kbit/s).
+Hash of data verified.
+
+Hard resetting via RTS pin...
+New upload port: /dev/ttyACM0 (serial)
+wink@3900x 25-10-31T18:47:07.744Z:~/data/prgs/PDS-examples (main)
+$ make monitor PORT=/dev/ttyACM1
+Monitor port settings:
+  baudrate=115200
+  bits=8
+  dtr=on
+  parity=none
+  rts=on
+  stop_bits=1
+
+Connecting to /dev/ttyACM1. Press CTRL-C to exit.
+Main loop iteration
+LED1 ON
+MaLED1 OFF
+LED1 ON
+LED1 OFF
+LED1 ON
+LED1 OFF
+LED1 ON
+LED1 OFF
+Loop count: 20
+LED1 ON
+LED1 OFF
+LED1 ON
+LED1 OFF
+LED1 ON
+LED1 OFF
+LED1 ON
+LED1 OFF
+LED1 ON
+LED1 OFF
+Loop count: 30
+LED1 ON
+LED1 OFF
+LED1 ON
+^C
+wink@3900x 25-10-31T18:47:22.826Z:~/data/prgs/PDS-examples (main)
+```
 
 ## License
 

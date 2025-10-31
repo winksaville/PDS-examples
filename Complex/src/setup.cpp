@@ -1,4 +1,4 @@
-#include "src/setup.h"
+#include "setup.h"
 
 void setup() {
   pinMode(LED1_PIN, OUTPUT);

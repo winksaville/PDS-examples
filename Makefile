@@ -69,8 +69,9 @@ init: ## `make init` One-time: init config, install core + libs
 	$(CLI) config set network.connection_timeout 600s
 	$(CLI) config add board_manager.additional_urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
 	$(CLI) core update-index
-#	$(CLI) core install "esp32:esp32@2.0.14"	# Version with mbedtls_md5_xxx_ret routines PD_Stepper_Web_Server compiles OK may fail to upload
-	$(CLI) core install "esp32:esp32"			# New version with mbedtls_md5_xxx routines PD_Stepper_Web_Server won't compile
+#	$(CLI) core install "esp32:esp32@2.0.10"	# Complex works.
+#	$(CLI) core install "esp32:esp32@2.0.14"	# Complex works. Version with mbedtls_md5_xxx_ret routines PD_Stepper_Web_Server compiles OK may fail to upload
+	$(CLI) core install "esp32:esp32"		# Complex works. Latest version with mbedtls_md5_xxx routines PD_Stepper_Web_Server won't compile
 	$(CLI) lib install "ESPAsyncWebServer"
 	$(CLI) lib install "TMC2209"
 
@@ -102,9 +103,15 @@ core.%: ## `make lib.<cmd> PKG=<PackageName>` Runs arduino-cli lib <cmd> "$(PKG)
 # 	    well, but we don't need to.
 #       See this conversation with the Bot how we came to this solution
 #       https://chatgpt.com/share/68fc169e-d0e4-800c-b570-2f43e7ca48bb
+#
+#	For Debug_Aux we must'n use --wrap, hence the conditional
 .PHONY: buildit
 buildit:
-	$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" --build-property "compiler.c.elf.extra_flags=\"-Wl,--wrap=app_main\""  "./$(SKETCH)" $(OTHER_COMPILE_PARAMS)
+	@if [[ "$(SKETCH)" == "Debug_Aux" ]]; then \
+		$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" "./$(SKETCH)" $(OTHER_COMPILE_PARAMS); \
+	else \
+		$(CLI) compile -b "$(FQBN)" --build-path "$(BUILD)" --build-property "compiler.c.elf.extra_flags=\"-Wl,--wrap=app_main\""  "./$(SKETCH)" $(OTHER_COMPILE_PARAMS); \
+	fi
 
 compile c: ## `make c S=<SketchDir>` Compile a sketch
 	$(call check-sketch)

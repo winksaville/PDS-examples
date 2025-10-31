@@ -1,4 +1,4 @@
-#include "src/loop.h"
+#include "loop.h"
 
 void loop() {
   led_on = !led_on;
