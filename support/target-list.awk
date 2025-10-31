@@ -1,8 +1,12 @@
 #!/usr/bin/env awk
 #
-# This app processes a Makefile and extracts targets and their descriptions.
-# Targets a space seperaated list of names followed by a colon.
-# A description is the trimed text following "## " on the same line.
+# This awk script processes a Makefile and extracts targets and their descriptions
+# so as to make it easy to document the sub-commands/targets supported
+# by the Makefile.
+#
+# For the purpose of this awk script a "Target" is a space seperated list of
+# names followed by a colon and the description is the text following "## "
+# on the same line.
 #
 # Example Makefile usage:
 # ----------------------------------
